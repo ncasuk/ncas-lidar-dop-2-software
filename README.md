@@ -2,6 +2,7 @@
 
 Code for creating AMOF-compliant netCDF files for ncas-lidar-dop-2 instrument.
 
+Uses [ncas_amof_netcdf_template] submodule to create an empty netCDF file.
 
 ## Requirements
 * python
@@ -55,3 +56,5 @@ python process_lidar_stare.py -h
 
 Bash scripts to help automate this.
 
+
+[ncas_amof_netcdf_template]: https://github.com/joshua-hampton/ncas_amof_netcdf_template
