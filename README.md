@@ -61,7 +61,7 @@ Within `make_netcdf.sh`, the following may need adjusting:
 * `netcdf_path="/gws/..."`: replace file path with where to write netCDF files.
 * `datapath="/gws/..."`: replace file path with path to data.
 * `metadata_file=${SCRIPT_DIR}/../metadata.csv`: replace if using different metadata file.
-* `logfilepath="/home/...": replace with path of where to write logs to
+* `logfilepath="/home/..."`: replace with path of where to write logs to
 
 
 [scripts]: scripts
