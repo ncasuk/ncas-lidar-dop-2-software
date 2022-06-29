@@ -24,8 +24,8 @@ no_stare_files=$(ls ${datapath}/${year}/${year}${month}/${datadate}/Stare* | wc 
 wp_files=$(ls ${datapath}/${year}/${year}${month}/${datadate}/Wind_Profile*)
 no_wp_files=$(ls ${datapath}/${year}/${year}${month}/${datadate}/Wind_Profile* | wc -l)
 
-python ${SCRIPT_DIR}/../process_lidar_stare.py ${stare_files} -m ${metadata_file} -o ${netcdf_path}
-python ${SCRIPT_DIR}/../process_lidar_wind_profile.py ${wp_files} -m ${metadata_file} -o ${netcdf_path}
+python ${SCRIPT_DIR}/../process_lidar_stare.py ${stare_files} -m ${metadata_file} -o ${netcdf_path} -v
+python ${SCRIPT_DIR}/../process_lidar_wind_profile.py ${wp_files} -m ${metadata_file} -o ${netcdf_path} -v
 
 
 if [ -f ${netcdf_path}/ncas-lidar-dop-2_iao_${year}${month}${day}_aerosol-backscatter-radial-winds_stare_*.nc ]
