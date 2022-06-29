@@ -1,0 +1,6 @@
+numpy
+netcdf4
+bisect
+parse
+datetime
+csv
