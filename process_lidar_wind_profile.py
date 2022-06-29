@@ -314,7 +314,6 @@ def make_netcdf_mean_winds_profile(lidar_files, metadata_file = None, ncfile_loc
     eastward_winds = all_threedwinds[:,0,:]
     northward_winds = all_threedwinds[:,1,:]
     upward_winds = all_threedwinds[:,2,:]
-    print(np.shape(altitudes))
         
     if verbose: 
         print('Making netCDF file')
