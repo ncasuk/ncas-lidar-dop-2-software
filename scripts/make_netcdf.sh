@@ -6,8 +6,7 @@
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-#netcdf_path="/gws/nopw/j04/ncas_obs/cdao/processing/ncas-radar-wind-profiler-1/netcdf_files"
-netcdf_path="/home/users/earjham"
+netcdf_path="/gws/nopw/j04/ncas_obs/cdao/processing/ncas-radar-wind-profiler-1/netcdf_files"
 datapath="/gws/nopw/j04/ncas_obs/iao/raw_data/ncas-lidar-dop-2/incoming/Proc"
 logfilepath="/home/users/earjham/logs/nld2logs"
 metadata_file=${SCRIPT_DIR}/../metadata.csv
