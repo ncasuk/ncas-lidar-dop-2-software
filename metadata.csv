@@ -1,0 +1,13 @@
+project, NCAS Long Term Measurement Programme
+project_principal_investigator, Professor Stephen Mobbs
+project_principal_investigator_email, stephen.mobbs@ncas.ac.uk
+project_principal_investigator_url, https://orcid.org/0000-0003-3872-9422
+platform_type, stationary_platform
+location_keywords, Iceland
+featureType, timeSeriesProfile
+product_version, v1.0
+processing_level, 1
+processing_software_url, https://github.com/ncasuk/ncas-lidar-dop-2-software
+processing_software_version, v1.0
+instrument_software, CHECK: Streamline XR 
+comment, None
