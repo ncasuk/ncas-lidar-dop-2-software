@@ -133,9 +133,10 @@ def calculate_3d_winds(data):
     all_vr3s = data['D'][az360_index, indexs_beam1]  
     dop_winds = np.array([all_vr1s,all_vr2s,all_vr3s])
     
-    angle_array = np.array([[np.tan(np.deg2rad(data['EL'][az90_index,0])), -1/np.cos(np.deg2rad(data['EL'][az90_index,0])), 0],
-                            [np.tan(np.deg2rad(data['EL'][az360_index,0])), 0,                                             -1/np.cos(np.deg2rad(data['EL'][az360_index,0]))],
-                            [-1,                                            0,                                              0]])
+    angle_array = np.array([[-np.tan(np.deg2rad(data['EL'][az90_index,0])), 1/np.cos(np.deg2rad(data['EL'][az90_index,0])), 0],
+                            [-np.tan(np.deg2rad(data['EL'][az360_index,0])), 0,                                             1/np.cos(np.deg2rad(data['EL'][az360_index,0]))],
+                            [1,                                              0,                                             0]])
+
     # Matrix multiplication
     threedwinds = angle_array@dop_winds
     
