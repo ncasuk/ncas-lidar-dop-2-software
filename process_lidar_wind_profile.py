@@ -139,7 +139,7 @@ def calculate_3d_winds(data):
     # Matrix multiplication
     threedwinds = angle_array@dop_winds
     
-    wind_speed = (threedwinds[0,:]**2 + threedwinds[1,:]**2 + threedwinds[2,:]**2) ** 0.5  # 3D wind speed
+    wind_speed = (threedwinds[0,:]**2 + threedwinds[1,:]**2) ** 0.5  # 2D wind speed
     wdir = np.empty(threedwinds[0].shape)
     for i in range(threedwinds[0].shape[0]):
         wdir[i] = uv_from_dir(threedwinds[0,i],threedwinds[1,i])
