@@ -4,6 +4,7 @@ from netCDF4 import Dataset
 import csv
 
 import read_lidar
+import aerosol_backscatter_qc
 from ncas_amof_netcdf_template import create_netcdf, util, remove_empty_variables
 
 
@@ -81,6 +82,9 @@ def make_netcdf_aerosol_backscatter_radial_winds(lidar_files, metadata_file = No
             time_coverage_start_dt.append(this_time_coverage_start_dt)
             time_coverage_end_dt.append(this_time_coverage_end_dt)
             file_date.append(this_file_date)
+    
+    if verbose: print('Doing QC')        
+    flags = aerosol_backscatter_qc.make_flags(datarange, datavel, dataint, databs)
             
     inst_azimuths = np.ma.ones((len(unix_times),1)) * -9999
     inst_azimuths = np.ma.masked_where(inst_azimuths == -9999, inst_azimuths)
@@ -101,6 +105,10 @@ def make_netcdf_aerosol_backscatter_radial_winds(lidar_files, metadata_file = No
     create_netcdf.main('ncas-lidar-dop-2', date = file_date[0], dimension_lengths = {'time':len(unix_times), 'index_of_range': all_data['0']['gate_number'], 'index_of_angle': no_angles[0]}, loc = 'land', products = ['aerosol-backscatter-radial-winds'], file_location = ncfile_location, options='stare')
     ncfile = Dataset(f'{ncfile_location}/ncas-lidar-dop-2_iao_{file_date[0]}_aerosol-backscatter-radial-winds_stare_v1.0.nc', 'a')
     
+    # needed due to error in AMOF google sheets
+    ncfile.createVariable('qc_flag_radial_velocity_of_scatterers_away_from_instrument', 'b', dimensions=('time', 'index_of_range', 'index_of_angle'))
+    ncfile.createVariable('qc_flag_backscatter', 'b', dimensions=('time', 'index_of_range', 'index_of_angle'))
+    
     if verbose:
         print('Updating variables')
     util.update_variable(ncfile, 'range', datarange)
@@ -109,6 +117,8 @@ def make_netcdf_aerosol_backscatter_radial_winds(lidar_files, metadata_file = No
     util.update_variable(ncfile, 'signal_to_noise_ratio_plus_1', dataint)
     util.update_variable(ncfile, 'sensor_azimuth_angle_instrument_frame', inst_azimuths)
     util.update_variable(ncfile, 'sensor_view_angle_instrument_frame', inst_elevations)
+    util.update_variable(ncfile, 'qc_flag_radial_velocity_of_scatterers_away_from_instrument', flags)
+    util.update_variable(ncfile, 'qc_flag_backscatter', flags)
     #util.update_variable(ncfile, 'sensor_azimuth_angle_earth_frame', .....)
     #util.update_variable(ncfile, 'sensor_view_angle_earth_frame', .....)
     util.update_variable(ncfile, 'time', unix_times)

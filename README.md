@@ -69,7 +69,7 @@ Within `make_netcdf.sh`, the following may need adjusting:
 ## Further Information
 
 * `read_lidar.py` contains the code that actually reads the raw data. This is called from within the process lidar scripts.
-* No quality control is currently performed.
+* Some quality control is performed on the aerosol-backscatter-radial-winds data product. No quality control is currently done on any other product.
 * See [ncas_amof_netcdf_template] for more information on how the netCDF file is created, and the additional useful functions it contains.
 
 [ncas_amof_netcdf_template]: https://github.com/joshua-hampton/ncas_amof_netcdf_template
