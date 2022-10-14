@@ -130,8 +130,8 @@ def make_netcdf_aerosol_backscatter_radial_winds(lidar_files, metadata_file = No
     util.update_variable(ncfile, 'second', seconds)
     util.update_variable(ncfile, 'day_of_year', doy)
     
-    ncfile.setncattr('time_coverage_start', dt.datetime.fromtimestamp(min(time_coverage_start_dt), dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S %Z"))
-    ncfile.setncattr('time_coverage_end', dt.datetime.fromtimestamp(max(time_coverage_end_dt), dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S %Z"))
+    ncfile.setncattr('time_coverage_start', dt.datetime.fromtimestamp(min(time_coverage_start_dt), dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"))
+    ncfile.setncattr('time_coverage_end', dt.datetime.fromtimestamp(max(time_coverage_end_dt), dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"))
     ncfile.setncattr('pulses_per_ray', int(all_data['0']['pulses_per_ray']))
     ncfile.setncattr('rays_per_point', int(all_data['0']['rays_per_point']))
     ncfile.setncattr('focus', f"{int(all_data['0']['focus_range'])}m" if int(all_data['0']['focus_range']) != 65535 else 'Inf')
