@@ -2,8 +2,6 @@
 
 Code for creating AMOF-compliant netCDF files for ncas-lidar-dop-2 instrument.
 
-Uses [ncas_amof_netcdf_template] submodule to create an empty netCDF file.
-
 ## Requirements
 * python 3.7 or above
 * modules:
@@ -11,19 +9,14 @@ Uses [ncas_amof_netcdf_template] submodule to create an empty netCDF file.
   * numpy
   * datetime
   * parse
+  * [ncas-amof-netcdf-template]
 
 
 ## Installation
 
-Clone the git repo and submodule:
+Clone the git repo:
 ```
-git clone --recurse-submodules https://github.com/joshua-hampton/ncas-lidar-dop-2-software.git
-```
-
-If the `--recurse-submodules` flag is not included, the `ncas_amof_netcdf_template` repo will not also be cloned. To fix this, use the following commands in the top level of this repo:
-```
-git submodule init
-git submodule update
+git clone https://github.com/joshua-hampton/ncas-lidar-dop-2-software.git
 ```
 
 Install required modules using `pip install -r requirements.txt` or `conda install --file requirements.txt -c conda-forge`
@@ -70,6 +63,5 @@ Within `make_netcdf.sh`, the following may need adjusting:
 
 * `read_lidar.py` contains the code that actually reads the raw data. This is called from within the process lidar scripts.
 * Some quality control is performed on the aerosol-backscatter-radial-winds data product. No quality control is currently done on any other product.
-* See [ncas_amof_netcdf_template] for more information on how the netCDF file is created, and the additional useful functions it contains.
 
-[ncas_amof_netcdf_template]: https://github.com/joshua-hampton/ncas_amof_netcdf_template
+[ncas_amof_netcdf_template]: https://ncas-amof-netcdf-template.readthedocs.io/en/stable 
