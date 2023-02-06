@@ -6,13 +6,19 @@
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-netcdf_path="/gws/nopw/j04/ncas_obs/cdao/processing/ncas-radar-wind-profiler-1/netcdf_files"
-datapath="/gws/nopw/j04/ncas_obs/iao/raw_data/ncas-lidar-dop-2/incoming/Proc"
-logfilepath="/home/users/earjham/logs/nld2logs"
+gws_path=/gws/pw/j07/ncas_obs_vol1
+
+netcdf_path=${gws_path}/iao/processing/ncas-lidar-dop-2/netcdf_files
+datapath=${gws_path}/iao/raw_data/ncas-lidar-dop-2/incoming/Proc
+logfilepath=${gws_path}/iao/logs/ncas-ceilometer-3
+
 metadata_file=${SCRIPT_DIR}/../metadata.csv
 
 
 datadate=$1  # YYYYmmdd
+conda_env=${2:-netcdf}
+
+conda activate ${conda_env}
 
 year=${datadate:0:4}
 month=${datadate:4:2}
