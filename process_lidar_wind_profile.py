@@ -208,8 +208,23 @@ def make_netcdf_aerosol_backscatter_radial_winds(lidar_files, metadata_file = No
     
     if verbose:
         print('Making netCDF file')
-    create_netcdf.main('ncas-lidar-dop-2', date = file_date[0], dimension_lengths = {'time':len(unix_times)/actual_no_angles, 'index_of_range': all_data['0']['gate_number'], 'index_of_angle': actual_no_angles}, loc = 'land', products = ['aerosol-backscatter-radial-winds'], file_location = ncfile_location, options='wind-profile')
-    ncfile = Dataset(f'{ncfile_location}/ncas-lidar-dop-2_iao_{file_date[0]}_aerosol-backscatter-radial-winds_wind-profile_v1.0.nc', 'a')
+
+    actual_file_date = ''
+    if file_date[0][:4] == file_date[-1][:4]:
+        actual_file_date += file_date[0][:4]
+        if file_date[0][4:6] == file_date[-1][4:6]:
+            actual_file_date += file_date[0][4:6]
+            if file_date[0][6:8] == file_date[-1][6:8]:
+                actual_file_date += file_date[0][6:8]
+                if file_date[0][8:11] == file_date[-1][8:11]:
+                    actual_file_date += file_date[0][8:11]
+                    if file_date[0][11:13] == file_date[-1][11:13]:
+                        actual_file_date += file_date[0][11:13]
+                        if file_date[0][13:] == file_date[-1][13:]:
+                            actual_file_date += file_date[0][13:]
+
+    create_netcdf.main('ncas-lidar-dop-2', date = actual_file_date, dimension_lengths = {'time':len(unix_times)/actual_no_angles, 'index_of_range': all_data['0']['gate_number'], 'index_of_angle': actual_no_angles}, loc = 'land', products = ['aerosol-backscatter-radial-winds'], file_location = ncfile_location, options='wind-profile')
+    ncfile = Dataset(f'{ncfile_location}/ncas-lidar-dop-2_iao_{actual_file_date}_aerosol-backscatter-radial-winds_wind-profile_v1.0.nc', 'a')
     
     # needed due to error in AMOF google sheets
     ncfile.createVariable('qc_flag_radial_velocity_of_scatterers_away_from_instrument', 'b', dimensions=('time', 'index_of_range', 'index_of_angle'))
@@ -260,7 +275,7 @@ def make_netcdf_aerosol_backscatter_radial_winds(lidar_files, metadata_file = No
     
     if verbose:
         print('Removing empty variables')
-    remove_empty_variables.main(f'{ncfile_location}/ncas-lidar-dop-2_iao_{file_date[0]}_aerosol-backscatter-radial-winds_wind-profile_v1.0.nc', verbose = verbose, skip_check = True)
+    remove_empty_variables.main(f'{ncfile_location}/ncas-lidar-dop-2_iao_{actual_file_date}_aerosol-backscatter-radial-winds_wind-profile_v1.0.nc', verbose = verbose, skip_check = True)
 
 
     
@@ -328,8 +343,23 @@ def make_netcdf_mean_winds_profile(lidar_files, metadata_file = None, ncfile_loc
         
     if verbose: 
         print('Making netCDF file')
-    create_netcdf.main('ncas-lidar-dop-2', date = file_date[0], dimension_lengths = {'time':len(lidar_files), 'altitude': np.shape(altitudes)[0]}, loc = 'land', products = ['mean-winds-profile'], file_location = ncfile_location)
-    ncfile = Dataset(f'{ncfile_location}/ncas-lidar-dop-2_iao_{file_date[0]}_mean-winds-profile_v1.0.nc', 'a')
+
+    actual_file_date = ''
+    if file_date[0][:4] == file_date[-1][:4]:
+        actual_file_date += file_date[0][:4]
+        if file_date[0][4:6] == file_date[-1][4:6]:
+            actual_file_date += file_date[0][4:6]
+            if file_date[0][6:8] == file_date[-1][6:8]:
+                actual_file_date += file_date[0][6:8]
+                if file_date[0][8:11] == file_date[-1][8:11]:
+                    actual_file_date += file_date[0][8:11]
+                    if file_date[0][11:13] == file_date[-1][11:13]:
+                        actual_file_date += file_date[0][11:13]
+                        if file_date[0][13:] == file_date[-1][13:]:
+                            actual_file_date += file_date[0][13:]
+
+    create_netcdf.main('ncas-lidar-dop-2', date = actual_file_date, dimension_lengths = {'time':len(lidar_files), 'altitude': np.shape(altitudes)[0]}, loc = 'land', products = ['mean-winds-profile'], file_location = ncfile_location)
+    ncfile = Dataset(f'{ncfile_location}/ncas-lidar-dop-2_iao_{actual_file_date}_mean-winds-profile_v1.0.nc', 'a')
     
     if verbose:
         print('Updating variables')
@@ -366,7 +396,7 @@ def make_netcdf_mean_winds_profile(lidar_files, metadata_file = None, ncfile_loc
     
     if verbose:
         print('Removing empty variables')
-    remove_empty_variables.main(f'{ncfile_location}/ncas-lidar-dop-2_iao_{file_date[0]}_mean-winds-profile_v1.0.nc', verbose = verbose, skip_check = True)
+    remove_empty_variables.main(f'{ncfile_location}/ncas-lidar-dop-2_iao_{actual_file_date}_mean-winds-profile_v1.0.nc', verbose = verbose, skip_check = True)
             
         
     
