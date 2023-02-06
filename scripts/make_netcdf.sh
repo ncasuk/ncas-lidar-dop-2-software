@@ -10,7 +10,7 @@ gws_path=/gws/pw/j07/ncas_obs_vol1
 
 netcdf_path=${gws_path}/iao/processing/ncas-lidar-dop-2/netcdf_files
 datapath=${gws_path}/iao/raw_data/ncas-lidar-dop-2/incoming/Proc
-logfilepath=${gws_path}/iao/logs/ncas-ceilometer-3
+logfilepath=${gws_path}/iao/logs/ncas-lidar-dop-2
 
 metadata_file=${SCRIPT_DIR}/../metadata.csv
 
