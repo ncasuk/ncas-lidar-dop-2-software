@@ -43,7 +43,7 @@ def get_data(lidar_file):
 
 
 
-def make_netcdf_aerosol_backscatter_radial_winds(lidar_files, metadata_file = None, ncfile_location = '.', verbose = False):
+def make_netcdf_aerosol_backscatter_radial_winds(lidar_files, metadata_file = None, ncfile_location = '.', verbose = False, local_tsv_file_loc = None):
     """
     lidar_files - list
     """
@@ -118,8 +118,7 @@ def make_netcdf_aerosol_backscatter_radial_winds(lidar_files, metadata_file = No
                         if file_date[0][13:] == file_date[-2][13:]:
                             actual_file_date += file_date[0][13:]
 
-    create_netcdf.main('ncas-lidar-dop-2', date = actual_file_date, dimension_lengths = {'time':len(unix_times), 'index_of_range': all_data['0']['gate_number'], 'index_of_angle': no_angles[0]}, loc = 'land', products = ['aerosol-backscatter-radial-winds'], file_location = ncfile_location, options='stare')
-    ncfile = Dataset(f'{ncfile_location}/ncas-lidar-dop-2_iao_{actual_file_date}_aerosol-backscatter-radial-winds_stare_v1.0.nc', 'a')
+    ncfile = create_netcdf.main('ncas-lidar-dop-2', date = actual_file_date, dimension_lengths = {'time':len(unix_times), 'index_of_range': all_data['0']['gate_number'], 'index_of_angle': no_angles[0]}, loc = 'land', products = ['aerosol-backscatter-radial-winds'], file_location = ncfile_location, options='stare', use_local_files = local_tsv_file_loc, return_open = True)
     
     # needed due to error in AMOF google sheets
     ncfile.createVariable('qc_flag_radial_velocity_of_scatterers_away_from_instrument', 'b', dimensions=('time', 'index_of_range', 'index_of_angle'))
@@ -183,12 +182,13 @@ if __name__ == "__main__":
     parser.add_argument('-m','--metadata', type = str, help = 'csv file with global attributes and additional metadata. Default is None', dest='metadata')
     parser.add_argument('-o','--ncfile-location', type=str, help = 'Path for where to save netCDF file. Default is .', default = '.', dest="ncfile_location")
     parser.add_argument('-p','--products', nargs = '*', help = 'Products of ncas-lidar-dop-2 to make netCDF files for. Options are mean-winds-profile (not yet implemented), aerosol-backscatter-radial-winds, depolarisation-ratio (not yet implemented). One or many can be given (space separated), default is "aerosol-backscatter-radial-winds".', default = ['aerosol-backscatter-radial-winds'])
+    parser.add_argument('-t','--tsv-location', type = str, help = "Path to local file location for AMF_CVs tsv files for 'offline' use. Default is None ('online' use).", default = None, dest = 'tsv_location')
     args = parser.parse_args()
     
     
     for prod in args.products:
         if prod == 'aerosol-backscatter-radial-winds':
-            make_netcdf_aerosol_backscatter_radial_winds(args.input_file, metadata_file = args.metadata, ncfile_location = args.ncfile_location, verbose = args.verbose)
+            make_netcdf_aerosol_backscatter_radial_winds(args.input_file, metadata_file = args.metadata, ncfile_location = args.ncfile_location, verbose = args.verbose, local_tsv_file_loc = args.tsv_location)
         elif prod in ['mean-winds-profile', 'depolarisation-ratio']:
             print(f'WARNING: {prod} is not yet implemented, continuing with other prodcuts...')
         else:
