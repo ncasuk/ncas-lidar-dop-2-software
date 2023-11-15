@@ -1,4 +1,4 @@
 numpy
 netcdf4
 parse
-ncas-amof-netcdf-template
+ncas-amof-netcdf-template>=2.3.1
